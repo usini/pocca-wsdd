@@ -1676,6 +1676,7 @@ def parse_args():
         configFile = configparser.ConfigParser()
         configFile.read("/media/usb/pilaroid.ini")
         args.uuid = uuid.uuid5(uuid.NAMESPACE_DNS, configFile["APPLICATION"]["name"])
+        args.hostname = configFile["APPLICATION"]["name"]
         logger.info('using pre-defined UUID {0}'.format(str(args.uuid)))
     else:
         args.uuid = uuid.UUID(args.uuid)

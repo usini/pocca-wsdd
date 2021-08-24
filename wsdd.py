@@ -1671,7 +1671,11 @@ def parse_args():
         logger.warning('no interface given, using all interfaces')
 
     if not args.uuid:
-        args.uuid = uuid.uuid5(uuid.NAMESPACE_DNS, socket.gethostname())
+        #args.uuid = uuid.uuid5(uuid.NAMESPACE_DNS, socket.gethostname())
+        import configparser
+        configFile = configparser.ConfigParser()
+        configFile.read("/media/usb/pilaroid.ini")
+        args.uuid = uuid.uuid5(uuid.NAMESPACE_DNS, configFile["APPLICATION"]["name"])
         logger.info('using pre-defined UUID {0}'.format(str(args.uuid)))
     else:
         args.uuid = uuid.UUID(args.uuid)
